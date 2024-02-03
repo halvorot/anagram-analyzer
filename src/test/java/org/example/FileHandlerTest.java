@@ -2,6 +2,9 @@ package org.example;
 
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -34,4 +37,59 @@ class FileHandlerTest {
         assertThat(exception.getMessage()).isEqualTo("Could not read file");
 
     }
+
+    @Test
+    void should_write_list_of_lists_to_file() throws IOException {
+
+        // Arrange
+        List<List<String>> listOfLines = List.of(List.of("test1", "test2", "test3"), List.of("test4", "test5"));
+        String filePath = "src/test/resources/test-output.txt";
+
+        // Act
+        FileHandler.writeToFile(listOfLines, filePath, " ");
+
+        // Assert
+        List<String> lines = Files.readAllLines(Path.of(filePath));
+        assertThat(lines).hasSize(2);
+        assertThat(lines.get(0)).isEqualTo("test1 test2 test3");
+        assertThat(lines.get(1)).isEqualTo("test4 test5");
+
+    }
+
+    @Test
+    void should_overwrite_list_of_lists_to_file_when_run_twice_on_same_file() throws IOException {
+
+        // Arrange
+        List<List<String>> listOfLines = List.of(List.of("test1", "test2", "test3"), List.of("test4", "test5"));
+        String filePath = "src/test/resources/test-output.txt";
+
+        FileHandler.writeToFile(listOfLines, filePath, " ");
+
+        // Act
+        FileHandler.writeToFile(listOfLines, filePath, " ");
+
+        // Assert
+        List<String> lines = Files.readAllLines(Path.of(filePath));
+        assertThat(lines).hasSize(2);
+        assertThat(lines.get(0)).isEqualTo("test1 test2 test3");
+        assertThat(lines.get(1)).isEqualTo("test4 test5");
+
+    }
+
+    @Test
+    void should_write_empty_list_of_lists_to_file() throws IOException {
+
+        // Arrange
+        List<List<String>> listOfLines = List.of();
+        String filePath = "src/test/resources/test-output.txt";
+
+        // Act
+        FileHandler.writeToFile(listOfLines, filePath, " ");
+
+        // Assert
+        List<String> lines = Files.readAllLines(Path.of(filePath));
+        assertThat(lines).isEmpty();
+
+    }
+
 }
