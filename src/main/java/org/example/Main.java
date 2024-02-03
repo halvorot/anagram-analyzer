@@ -3,6 +3,7 @@ package org.example;
 import java.util.List;
 
 public class Main {
+
     public static void main(String[] args) {
 
         List<String> words = FileHandler.readAllNonEmptyLines("src/main/resources/words-utf8.txt");

@@ -18,10 +18,8 @@ public class FileHandler {
 
     public static void writeToFile(final List<List<String>> listOfLines, final String filePath, final String elementSeparator) {
         try {
-            Path path = Path.of(filePath);
-            Files.deleteIfExists(path);
             Files.write(
-                    path,
+                    Path.of(filePath),
                     listOfLines.stream()
                             .map(subList -> String.join(elementSeparator, subList))
                             .toList(),
