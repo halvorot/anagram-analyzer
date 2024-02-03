@@ -4,7 +4,7 @@ import java.util.*;
 
 public class AnagramAnalyzer {
 
-    public static boolean isAnagram(String a, String b) {
+    public static boolean isAnagram(final String a, final String b) {
 
         String aSorted = sortString(a.toLowerCase());
         String bSorted = sortString(b.toLowerCase());
@@ -12,42 +12,13 @@ public class AnagramAnalyzer {
         return aSorted.equals(bSorted);
     }
 
-    private static String sortString(String word) {
+    private static String sortString(final String word) {
         char[] tempArray = word.toCharArray();
         Arrays.sort(tempArray);
         return new String(tempArray);
     }
 
-    public static boolean isAnagramUsingLetterFrequency(String a, String b) {
-
-        if (a.length() != b.length()) {
-            return false;
-        }
-
-        String lowerA = a.toLowerCase();
-        String lowerB = b.toLowerCase();
-
-        Map<Character, Integer> letterFrequencyA = getLetterFrequency(lowerA);
-        Map<Character, Integer> letterFrequencyB = getLetterFrequency(lowerB);
-
-        return letterFrequencyA.equals(letterFrequencyB);
-
-    }
-
-    private static Map<Character, Integer> getLetterFrequency(String word) {
-        Map<Character, Integer> letterFrequency = new HashMap<>();
-
-        for (int i = 0; i < word.length(); i++) {
-            char letter = word.charAt(i);
-            Integer currentValue = letterFrequency.putIfAbsent(letter, 1);
-            if (currentValue != null) {
-                letterFrequency.put(letter, currentValue + 1);
-            }
-        }
-        return letterFrequency;
-    }
-
-    public static List<List<String>> getAnagrams(List<String> words) {
+    public static List<List<String>> getAnagrams(final List<String> words) {
 
         LinkedList<String> mutableWords = new LinkedList<>(words);
         Map<String, List<String>> result = new HashMap<>();

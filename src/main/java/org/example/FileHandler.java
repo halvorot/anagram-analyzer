@@ -8,7 +8,7 @@ import java.util.List;
 
 public class FileHandler {
 
-    public static List<String> readAllNonEmptyLines(String filePath) {
+    public static List<String> readAllNonEmptyLines(final String filePath) {
         try {
             return Files.readAllLines(Path.of(filePath)).stream().filter(word -> !word.isEmpty()).toList();
         } catch (IOException exception) {
@@ -16,7 +16,7 @@ public class FileHandler {
         }
     }
 
-    public static void writeToFile(List<List<String>> listOfLines, String filePath, String elementSeparator) {
+    public static void writeToFile(final List<List<String>> listOfLines, final String filePath, final String elementSeparator) {
         try {
             Path path = Path.of(filePath);
             Files.deleteIfExists(path);
