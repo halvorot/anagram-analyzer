@@ -54,6 +54,22 @@ class AnagramAnalyzerTest {
     }
 
     @Test
+    void should_get_anagrams_from_list_of_words_with_multiple_anagrams() {
+
+        // Arrange
+        List<String> words = List.of("akte", "aldri", "alle", "arild", "lela", "raild");
+
+        // Act
+        List<List<String>> anagrams = AnagramAnalyzer.getAnagrams(words);
+
+        // Assert
+        assertThat(anagrams)
+                .hasSize(2)
+                .containsExactlyInAnyOrder(List.of("aldri", "arild", "raild"), List.of("alle", "lela"));
+
+    }
+
+    @Test
     void should_get_anagrams_from_list_of_words_without_anagrams() {
 
         // Arrange
